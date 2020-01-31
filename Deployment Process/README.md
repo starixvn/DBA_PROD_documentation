@@ -6,13 +6,23 @@ This deployment process is for developers and deployers to communicate with each
 
 This deployment process **MUST be applied** at all times. The only exception accepted is to solve critical issues on **Production** and have prior **_Supervisor_**'s approval.
 
+## Working Convention
+
+### Deployment Time
+
 All deployments as of now will be handled in these 2 time ranges: [**10:30 AM** to **11:30 AM**] and [**03:30 PM** to **04:30 PM**]. Any requests sent outside the deployment time ranges will be handled in the next deployment time.
 
 > **Important:** Please check your packages carefully before submit deployment request to avoid any delay that may happen because of the feedback after reviewing.
 
-## Process Diagram
+### UM Deployment
 
-The following charts show the detail steps of deployment processes. Currently, we are having the diagram for [stored procedures & functions](#stored-procedures-functions) and [scripts](#scripts) packages. For how-to instructions for developers, please see the [tutorial](#developer-tutorial) section.
+_(to be updated)_
+
+----
+
+  The following charts show the detail steps of deployment processes. Currently, we are having the diagram for [stored procedures & functions](#stored-procedures-functions) and [scripts](#scripts) packages. For developer's instructions, please see the [developer tutorial](#developer-tutorial) section.
+
+## Process Diagram
 
 ### Stored Procedures & Functions
 
@@ -176,9 +186,116 @@ sequenceDiagram
 
 ### Developer Tutorial
 
-| Id | System | Step | Description | Video |
-| :----: | :----: | :---- | :---- | :---- |
-| 1 | Git | Rebase & Push | | ![](Tutorial/Video/Git-Rebase_Push.mp4) |
-| 2 | goSQL | Create Package | | ![](Tutorial/Video/goSQL-NewSinglePackage.mp4) |
-| 3 | goSQL | New Request | | ![](Tutorial/Video/goSQL-LocalDeploy_NewRequest.mp4) |
-| 4 | goSQL | Receive Feedback | | ![](Tutorial/Video/goSQL-RequestApproved_Rejected.mp4) |
+#### Git - Rebase & Push
+
+![](Tutorial/Video/Git-Rebase_Push.mp4)
+
+Using _Git Extension_:
+
+1. Issue **_Fetch all_** command to get latest changes on remote repository.
+1. If current branch is **NOT** based on `master`:
+	1. Issue **_Rebase_** command on `origin/master`
+	1. Resolve any conflict if exists.
+	1. Issue **_Push_** command with **_Force with lease_** option. (Make sure you don't override any changes of other colleagues before **_force push_**)
+	1. Notify related colleagues for the change so they can update their local git repository.
+1. Repeat these steps whenever you want to check if your code is updated.
+
+#### goSQL - Create Package
+
+![](Tutorial/Video/goSQL-NewSinglePackage.mp4)
+
+Using **[goSQL Portal](https://rocketor.nexdev.net/goSQL)**
+
+1. On `Dashboard` panel, navigate to your working repository.
+1. Click on the **plus** icon on the left of repository name to access **_Create Package_** function.
+1. Choose the package type:
+	1. **Single Package**: Packages of this type consist of changes in _a single repository_. This type is the most common in our deployment process.
+	1. **Mixed Package**: Package of this type consist of changes in _2 repositories_.  
+	This type is only for **SP/Func** category.
+1. Choose the package category:
+
+	> Any files that are different with `master` branch will be included in the steps below.  
+	**Important:** If your branch is not based on `master`, outdated files will also be included in the scan.
+
+	1. **SP/Func**:
+		- _goSQL_ will scan all `.sql` files **_outside_** `<root>/Scripts` folder.
+		- Only `.sql` files with this line at the top / bottom of the content are included in the package  
+		`/*<info serverAlias="DBALIAS-Database" executers="" selectors="" viewers="" isFunction="0" isNested="0"></info>*/`
+		- _goSQL_ will also scan for `_UnchangedSPs.txt` file to include the files that have not been changed but need to include in the package.
+	1. **Script**:
+		- _goSQL_ will scan all `.sql` files **_inside_** `<root>/Scripts` folder.
+		- Only `.sql` files with this line at the top / bottom of the content are included in the package  
+		`/*<info serverAlias="DBALIAS-Database"></info>*/`
+1. Choose your working branch, then choose the commit that you want to create package from.
+1. In the next popup, you can:
+	- Change package name
+	- Change related Redmine Id
+	- Choose to associate the SP list with above Redmine Id or not (this info will be updated to _NDict_ system)
+	- Add package note
+	- Reorder script in the list (default order is function first, then nested first)
+1. Click on **_Create_** to create package, or click on **_Request_** to proceed to request popup (see [Request Deployment](#)).
+1. After package creation, you can view it in `Dashboard` panel, under your working repository.
+
+#### goSQL - New Deployment Request
+
+![](Tutorial/Video/goSQL-LocalDeploy_NewRequest.mp4)
+
+Using **[goSQL Portal](https://rocketor.nexdev.net/goSQL)**
+
+##### Via `Dashboard` panel
+
+1. On [`Dashboard`](https://rocketor.nexdev.net/goSQL/) panel, navigate to your working repository.
+1. Click on the **_Request_** button on the environment you want to request the deployment.
+1. In the next popup, you can:
+	- Select the version of the **SP/Func** package that will be deployed as.
+	- Choose the deployer to handle your request.
+	- Specify the time that the request will be deployed.
+	- Specify if this request need to be handle in UM session or not.
+	- Add some notes for deployer so he can process your request more efficient.
+1. Click on **_Submit_** button after checking all the info.
+
+##### Via `Request` panel
+
+1. On [`Requests`](https://rocketor.nexdev.net/goSQL/Request) panel, click on **_New Request_** button.
+1. Select your package
+1. Then, you can:
+	- Choose the environment that your request will be deployed to.
+	- Select the version of the **SP/Func** package that will be deployed as.
+	- Choose the deployer to handle your request.
+	- Specify the time that the request will be deployed.
+	- Specify if this request need to be handle in UM session or not.
+	- Add some notes for deployer so he can process your request more efficient.
+1. Click on **_Submit_** button after checking all the info.
+
+##### Via `Package` panel
+
+1. On [`Packages`](https://rocketor.nexdev.net/goSQL/Package) panel, search for the package you want to request deployment.
+1. In the result table, on `Request` column, click on the **plus** icon of the package to create new request.
+1. In the popup, you can:
+	- Choose the environment that your request will be deployed to.
+	- Select the version of the **SP/Func** package that will be deployed as.
+	- Choose the deployer to handle your request.
+	- Specify the time that the request will be deployed.
+	- Specify if this request need to be handle in UM session or not.
+	- Add some notes for deployer so he can process your request more efficient.
+1. Click on **_Submit_** button after checking all the info.
+
+#### goSQL - Tracking Deployment Request
+
+![](Tutorial/Video/goSQL-RequestApproved_Rejected.mp4)
+
+##### Via [`goSQL - Dashboard`](https://rocketor.nexdev.net/goSQL) panel
+
+1. On `Dashboard` panel, navigate to your working repository.
+1. Looking for your package to see the status on each environment.
+1. The deployment status will be refreshed automatically.
+
+##### Via `Skype`
+
+1. Search for your team deployment room. The room usually has this name: `Devs - <Team Name> - DB DEPLOYMENT`
+1. Whenever your request is created, updated, approved or rejected, **Skynex** bot will send related info into the deployment room.
+1. You can also work with deployer in the room if needed.
+
+### Deployer Tutorial
+
+_(to be updated)_
