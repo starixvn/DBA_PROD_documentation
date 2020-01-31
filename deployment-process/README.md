@@ -20,7 +20,9 @@ _(to be updated)_
 
 ----
 
-  The following charts show the detail steps of deployment processes. Currently, we are having the diagram for [stored procedures & functions](#stored-procedures-functions) and [scripts](#scripts) packages. For developer's instructions, please see the [developer tutorial](#developer-tutorial) section.
+  The following charts show the detail steps of deployment processes. Currently, we are having the diagram for [stored procedures & functions](#stored-procedures-functions) and [scripts](#scripts) packages.  
+  For developer's instructions, please see the [developer tutorial](#developer-tutorial) section.  
+  For deployer's instructions, please see the [deployer tutorial](#deployer-tutorial) section.
 
 ## Process Diagram
 
@@ -188,7 +190,7 @@ sequenceDiagram
 
 #### Git - Rebase & Push
 
-![](Tutorial/Video/Git-Rebase_Push.mp4)
+![](tutorial/video/Git-Rebase_Push.mp4)
 
 Using _Git Extension_:
 
@@ -202,7 +204,7 @@ Using _Git Extension_:
 
 #### goSQL - Create Package
 
-![](Tutorial/Video/goSQL-NewSinglePackage.mp4)
+![](tutorial/video/goSQL-NewSinglePackage.mp4)
 
 Using **[goSQL Portal](https://rocketor.nexdev.net/goSQL)**
 
@@ -221,7 +223,7 @@ Using **[goSQL Portal](https://rocketor.nexdev.net/goSQL)**
 		- _goSQL_ will scan all `.sql` files **_outside_** `<root>/Scripts` folder.
 		- Only `.sql` files with this line at the top / bottom of the content are included in the package  
 		`/*<info serverAlias="DBALIAS-Database" executers="" selectors="" viewers="" isFunction="0" isNested="0"></info>*/`
-		- _goSQL_ will also scan for `_UnchangedSPs.txt` file to include the files that have not been changed but need to include in the package.
+		- _goSQL_ will also scan for `_UnchangedSPs.txt` file to include the files that have not been changed but need to be included in the package.
 	1. **Script**:
 		- _goSQL_ will scan all `.sql` files **_inside_** `<root>/Scripts` folder.
 		- Only `.sql` files with this line at the top / bottom of the content are included in the package  
@@ -238,7 +240,7 @@ Using **[goSQL Portal](https://rocketor.nexdev.net/goSQL)**
 
 #### goSQL - New Deployment Request
 
-![](Tutorial/Video/goSQL-LocalDeploy_NewRequest.mp4)
+![](tutorial/video/goSQL-LocalDeploy_NewRequest.mp4)
 
 Using **[goSQL Portal](https://rocketor.nexdev.net/goSQL)**
 
@@ -282,7 +284,7 @@ Using **[goSQL Portal](https://rocketor.nexdev.net/goSQL)**
 
 #### goSQL - Tracking Deployment Request
 
-![](Tutorial/Video/goSQL-RequestApproved_Rejected.mp4)
+![](tutorial/video/goSQL-RequestApproved_Rejected.mp4)
 
 ##### Via [`goSQL - Dashboard`](https://rocketor.nexdev.net/goSQL) panel
 
