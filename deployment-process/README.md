@@ -92,7 +92,7 @@ Under Maintenance Session (UM or UM Time) is a planned downtime of the system fo
 
 For deployment tasks in UM Time, there are rules that need to be followed in order to plan the UM smoothly. The rules are different for different environments.
 
-#### **Production** UM Deployment
+#### `PROD` UM Deployment
 
 All UM deployment tasks **MUST be planned** and request to **_Pontus_** team via [this Google Sheet](https://starixdba.page.link/UMRequest).
 
@@ -104,9 +104,18 @@ All requests planned for UM Time must have **UM flag** checked to be distinguish
 
 > **Important:** Any packages submitted after defined time may be rejected due to lack of reviewing time.
 
+##### Exceptions
+
+Because all UM deployment tasks have been planned, if one want to request additional package for UM deployment, the Project Manager (aka. PM) in charge must follow these steps:
+
+1. Check with **_Pontus_** team to estimate the impact of newly added request.
+1. Get approval from **_Supervisor_** for the request.
+1. Check with all relevant parties in UM arrangement process to get the task registered and inform all parties for the change.
+1. Only when all above steps are **OK**, **_Pontus_** team will accept the request and arrange it for UM deployment.
+
 #### `SIT` UM Deployment
 
-For the moment, the only requests need to be deploy in UM time on `SIT` environment are **Script** packages. They **MUST** be submitted at least *1 (one) day* before announced SIT UM time. In the case no **SIT UM** session announced, **_Pontus_** team will arrange to have the request deployed in the next **SIT UM**.
+For the moment, the only requests need to be deploy in UM time on `SIT` environment are **Script** packages. They **MUST** be submitted at least *1 (one) day* before announced `SIT` UM time. In the case no `SIT` UM session announced, **_Pontus_** team will arrange to have the request deployed in the next one.
 
 ----
 
@@ -307,7 +316,7 @@ Using **[goSQL Portal](https://rocketor.nexdev.net/goSQL)**
 1. Click on the **plus** icon on the left of repository name to access **_Create Package_** function.
 1. Choose the package type:
 	1. **Single Package**: Packages of this type consist of changes in _a single repository_. This type is the most common in our deployment process.
-	1. **Mixed Package**: Package of this type consist of changes in _2 repositories_.  
+	1. **Mixed Package**: Package of this type consist of changes in _2 (two) or more repositories_.  
 	This type is only for **SP/Func** category.
 1. Choose the package category:
 
