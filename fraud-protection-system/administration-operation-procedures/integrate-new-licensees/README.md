@@ -188,7 +188,7 @@ Before proceeding with this guide, please confirm with related parties about the
 			,	[IntegrationDate]		= CAST(CAST(GETDATE() AS DATE) AS SMALLDATETIME) 
 			,	[IBCUserName_Prefix]	= (input.SubscriberName + '$')
 	) AS dt
-	WHERE	NOT EXIST (SELECT 1 FROM dbo.Subscribers AS _s WITH (NOLOCK) WHERE input.SubscriberName = _s.SubscriberName);
+	WHERE	NOT EXISTS (SELECT 1 FROM dbo.Subscribers AS _s WITH (NOLOCK) WHERE input.SubscriberName = _s.SubscriberName);
 
 	-- STEP 2: Insert DB's config
 	INSERT INTO	dbo.SubDBServers
@@ -202,7 +202,7 @@ Before proceeding with this guide, please confirm with related parties about the
 	FROM		#NewLicensees AS input WITH (NOLOCK)
 	LEFT JOIN	dbo.Subscribers AS s WITH (NOLOCK)
 			ON	input.SubscriberName = s.SubscriberName
-	WHERE	NOT EXIST (SELECT 1 FROM dbo.SubDBServers AS _db WITH (NOLOCK) WHERE s.SubscriberID = _db.SubscriberID);
+	WHERE	NOT EXISTS (SELECT 1 FROM dbo.SubDBServers AS _db WITH (NOLOCK) WHERE s.SubscriberID = _db.SubscriberID);
 	GO
 
 	-- STEP 3: Grant permission on subscriber
@@ -238,8 +238,8 @@ Before proceeding with this guide, please confirm with related parties about the
 	SELECT	s.SubscriberID, 2       , 1
 	FROM		dbo.Subscribers s WITH (NOLOCK)
 	INNER JOIN	#NewLicensees AS input WITH (NOLOCK)
-			ON	s.SubscriberName = t.SubscriberName
-	INNER JOIN	dbo.SubDBServers d WITH (NOLOCK)
+			ON	s.SubscriberName = input.SubscriberName
+	INNER JOIN	dbo.SubDBServers AS d WITH (NOLOCK)
 			ON	s.SubscriberID = d.SubscriberId;
 	```
 

@@ -52,6 +52,14 @@ In order to prevent **_standby deployment process_** access disabled databases a
 					,	IsActive			BIT
 	);
 	
+	INSERT INTO	#TerminatedLicensees (SubscriberName)
+	SELECT	DISTINCT
+			input.SubscriberName
+	FROM	(
+		VALUES	('')		--<========== INPUT HERE ==========<
+			,	('')		--<========== INPUT HERE ==========<
+	) AS input(SubscriberName);
+	
 	UPDATE	tmp WITH (TABLOCK)
 	SET		tmp.SubscriberId = s.SubscriberID
 	FROM		#TerminatedLicensees AS tmp
