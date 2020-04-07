@@ -8,9 +8,9 @@ This deployment process **MUST** be applied at all times. The only exception acc
 
 ## Working Convention
 
-### Deployment Time
+### Deployment Time `(Not applied yet)`
 
-> Not applied yet.
+> All time mentioned in this section is **UTC+7**.
 
 All deployments as of now will be handled in the 2 (two) following deployment sessions. This rule is for all deployment requests on `SIT`, `UAT`, and `PROD` environment.
 
