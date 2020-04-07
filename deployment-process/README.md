@@ -10,7 +10,7 @@ This deployment process **MUST** be applied at all times. The only exception acc
 
 ### Deployment Time
 
-> All time mentioned in this section is **UTC+7**.
+> Not applied yet.
 
 All deployments as of now will be handled in the 2 (two) following deployment sessions. This rule is for all deployment requests on `SIT`, `UAT`, and `PROD` environment.
 
