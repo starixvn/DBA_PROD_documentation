@@ -78,7 +78,7 @@ Before proceeding with this guide, please confirm with related parties about the
 	INSERT INTO PerfMonDB.dbo.vnDBA_FPS_BackupDatabases (ServerName, DatabaseName, Threshold, Active, NoFullFiles, NoDiffFiles)
 	SELECT	[ServerName]	= N'FPS_DB01\MSSQLSERVERWEB'
 		,	[DatabaseName]	= N'FPS_SUB_' + input.SubscriberName
-		,	[Threshold]		= NULL
+		,	[Threshold]		= 1 --Full backup per week
 		,	[Active]		= 1
 		,	[NoFullFiles]	= 1
 		,	[NoDiffFiles]	= 1
